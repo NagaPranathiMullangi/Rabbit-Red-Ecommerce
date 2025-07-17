@@ -1,4 +1,5 @@
 const express = require("express");
+const serverless = require("serverless-http");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
@@ -14,7 +15,11 @@ const productAdminRoutes = require("./routes/productAdminRoutes");
 const adminOrderRoutes = require("./routes/adminOrderRoutes");
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // or set to your frontend domain
+  })
+);
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -54,6 +59,9 @@ app.use("/api/admin/products", productAdminRoutes);
 
 app.use("/api/admin/orders", adminOrderRoutes);
 
-app.listen(PORT, () => {
+/*app.listen(PORT, () => {
   console.log(`server is running on http://localhost:${PORT}`);
-});
+});*/
+
+module.exports = app;
+module.exports.handler = serverless(app);
