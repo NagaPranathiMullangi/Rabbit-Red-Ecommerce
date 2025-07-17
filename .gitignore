@@ -10,7 +10,7 @@ backend/dist/
 *.env
 
 # Ignore log files
-*.log
+*.logs
 
 # Ignore system files
 .DS_Store
