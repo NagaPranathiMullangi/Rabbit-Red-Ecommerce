@@ -22,14 +22,20 @@ app.use(
 );
 app.use(express.json());
 
+// CORS Fix: Allow requests from your frontend domain
 app.use((req, res, next) => {
-  console.log("👉 HEADERS:", req.headers);
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://rabbit-red-ecommerce-6k37.vercel.app"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+//const PORT = process.env.PORT || 3000;
 
 connectDB();
 
